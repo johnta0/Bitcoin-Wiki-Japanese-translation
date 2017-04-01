@@ -1,0 +1,1 @@
+# Bitcoin-Wiki-Japanese-translation
