@@ -1,6 +1,6 @@
 # Bitcoin-Wiki-Japanese-translation
 
-This is Japanese translation of [Bitcoin Wiki](https://en.bitcoin.it/).
+[Bitcoin Wiki](https://en.bitcoin.it/)の日本語訳です。
 
 [Transaction](https://en.bitcoin.it/wiki/Transaction)
 
