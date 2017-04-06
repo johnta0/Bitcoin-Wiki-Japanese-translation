@@ -64,6 +64,7 @@ scriptSig: <sig> <pubKey>
 ビットコインアドレスはハッシュ値に過ぎないので、送信者はscriptPubKeyに完全な公開鍵を提供できるわけではない。ビットコインアドレスに送信されたコインを使用する時、受信者は署名と公開鍵の両方を提供する。スクリプトは、提供された公開鍵がscriptPubKey内のハッシュに対応していることを検証し、公開鍵に対する署名も確認する。
 
 チェックのプロセス：
+
 | Stack | Script | Description |
 |:-----------|------------:|:------------:|
 | Empty.  | <sig> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG | scriptSig and scriptPubKey are combined.
