@@ -1,5 +1,5 @@
 # トランザクション
-トランザクションとは、ビットコインの価値の移転のことで、その価値の移転はP2Pネットワークに公開され、いくつかのトランザクションが１つのブロックにまとめられる。一般にトランザクションは１つ前のトランザクションアウトプットを新しいトランザクションのインプットとして参照し、そしてそのインプット全てを、新しいアウトプットとして利用する[ココわかりづらいな]。トランザクションは暗号化されていないため、誰もがブロックとして集められたすべてのトランザクションを閲覧することができる。
+トランザクションとは、ビットコインの価値の移転のことである。トランザクションはP2Pネットワークに公開され、ブロックにまとめられる。一般にトランザクションは１つ前のトランザクションアウトプットを新しいトランザクションのインプットとして参照し、そしてそのインプット全てを、新しいアウトプットとして利用する。トランザクションは暗号化されていないため、誰もがブロックとして集められたすべてのトランザクションを閲覧することができる。
 
 標準的なトランザクションアウトプットはアドレスを指定し、将来それをインプットとして使用するには適切な電子署名が必要である。
 
@@ -51,7 +51,43 @@ OP_EQUALVERIFY OP_CHECKSIG
 
 
 ## トランザクションの種類
+現在ビットコインは２つの異なる scriptSigとscriptPubKeyのペアを生成する。これらは以下で説明する。
+より複雑なタイプのトランザクションを設計し、それらを互いにリンクさせて暗号学的に実行されるような合意を設計することも可能である。これは[コントラクト](https://en.bitcoin.it/wiki/Contract)として知られている。
 
-## Pay-to-PubkeyHash(P2PH)
+### Pay-to-PubkeyHash(P2PH)
 
-## Pay-to-Script-Hash(P2SH)
+```
+scriptPubKey: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+scriptSig: <sig> <pubKey>
+```
+
+ビットコインアドレスはハッシュ値に過ぎないので、送信者はscriptPubKeyに完全な公開鍵を提供できるわけではない。ビットコインアドレスに送信されたコインを使用する時、受信者は署名と公開鍵の両方を提供する。スクリプトは、提供された公開鍵がscriptPubKey内のハッシュに対応していることを検証し、公開鍵に対する署名も確認する。
+
+チェックのプロセス：
+| Stack | Script | Description |
+|:-----------|------------:|:------------:|
+| Empty.  | <sig> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG | scriptSig and scriptPubKey are combined.
+ |
+| <sig> <pubKey> | OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG | Constants are added to the stack. |
+| <sig> <pubKey> <pubKey> | OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG | Top stack item is duplicated. |
+| <sig> <pubKey> <pubHashA> | positive integer VI = VarInt | 1-9 bytes |
+| <sig> <pubKey> <pubHashA> <pubKeyHash>	 | OP_EQUALVERIFY OP_CHECKSIG | Constant added. |
+| <sig> <pubKey> | OP_CHECKSIG | Equality is checked between the top two stack items. |
+| true | Empty. | Signature is checked for top two stack items. |
+
+### Pay-to-Script-Hash(P2SH)
+
+```
+scriptPubKey: OP_HASH160 <scriptHash> OP_EQUAL
+scriptSig: ..signatures... <serialized script>
+```
+```
+m-of-n multi-signature transaction:
+scriptSig: 0 <sig1> ... <script>
+script: OP_m <pubKey1> ... OP_n OP_CHECKMULTISIG
+
+```
+
+P2SHアドレスは、送金元から次の権利者（受信者）に、トランザクションを実行する条件を提供する責任を移転する目的で作成される。P2SHアドレスによって送信者は、２０バイトハッシュを用いて、複雑さを問わない任意のトランザクションを行うことができる。pay-to-script-hashは、scriptPubKeyとscriptSigの特定の定義を持つPay-to-pubkey-hashとは異なり、複雑なトランザクションの手段を提供する。この仕様書はスクリプトに制限を設けていないため、これらのアドレスを使用してあらゆる契約に資金提供ができる。
+資金調達トランザクションのscriptPubKeyは、redeemingトランザクションで提供されたスクリプトがアドレスの作成に使用されたスクリプトにハッシュされることを保証するスクリプトである。
+上記のscriptSigでは、 'signature'は、次のシリアライズされたスクリプトを満たすのに十分な任意のスクリプトを参照する。
