@@ -1,0 +1,8 @@
+= Bitcoin-Wiki-Japanese-translation =
+
+[https://en.bitcoin.it/ Bitcoin Wiki]の日本語訳です。直訳気味のところや意訳したところがあり理解しづらい所があります。英語がある程度分かる人は原文を読むことを推奨します。
+
+[https://en.bitcoin.it/wiki/Transaction Transaction]
+
+[https://en.bitcoin.it/wiki/Script Script]
+

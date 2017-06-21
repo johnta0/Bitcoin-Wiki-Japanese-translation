@@ -6,3 +6,6 @@
 [Transaction](https://en.bitcoin.it/wiki/Transaction)
 
 [Script](https://en.bitcoin.it/wiki/Script)
+
+## 追記(2017.6.21)
+[日本語版のBitcoin Wiki](https://wiki.johnta.me)を作りました。随時みんなが更新してくれる予定です。
