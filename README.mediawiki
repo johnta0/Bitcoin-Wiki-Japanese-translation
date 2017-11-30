@@ -8,5 +8,5 @@
 
 == 追記(2017.6.21) ==
 
-[https://wiki.johnta.me 日本語版のBitcoin Wiki]を作りました。随時みんなが更新してくれる予定です。
+[https://bitcoinwiki.tokyo 日本語版のBitcoin Wiki]を作りました。随時みんなが更新してくれる予定です。
 
