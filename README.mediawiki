@@ -11,4 +11,4 @@
 [https://bitcoinwiki.tokyo 日本語版のBitcoin Wiki]を作りました。随時みんなが更新してくれる予定です。
 
 == 追記(2018.1.9) ==
-Bitcoin Wiki Tokyo は閉鎖しました。なお、記事はすべて[https://chub.kati0.com/wiki/Main_Page CurrencyHub] に移動しました。
+2018年1月31日をもって、Bitcoin Wiki Tokyo は閉鎖します。なお、記事はすべて[https://chub.kati0.com/wiki/Main_Page CurrencyHub] に移動しました。
